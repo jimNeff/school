@@ -9,36 +9,36 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="100"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-            <TextBlock 
+        <TextBlock 
                 Grid.Row="0"
+            Grid.ColumnSpan="2"
                 Margin="30, 0, 20, 0"                
                 Style="{StaticResource TitleTextBlockStyle}">
                 Tip Calculator
-            </TextBlock>
-            <TextBlock 
-                    FontSize="40"    
-                    Grid.Row="1"
-                    Margin="30, 0, 20, 0"                
-                    Style="{StaticResource TitleTextBlockStyle}">                
-                    Enter the Bill Amount
-            </TextBlock>
+        </TextBlock>
         
         <StackPanel 
                 Name="myStackPanel"
-                Grid.Row="2"
+                Grid.Row="1"
+                Grid.Column="0"
                 Margin="20, 0, 20, 0">
-            
+
             <TextBlock  
                 HorizontalAlignment="Left"
                 TextWrapping="Wrap"
                 Text="Bill Amount"
-                FontSize="24" />
-            
+                FontSize="24"
+                />
+
             <TextBox
                 Name="billAmountTextBox"
                 Text="$0.00"
@@ -52,25 +52,42 @@
                 LostFocus="amountTextBox_LostFocus"
                 TextChanged="billAmountTextBox_TextChanged"
                 GotFocus="amountTextBox_GotFocus"/>
+
+            </StackPanel>
+        
+        <StackPanel 
+                Name="secondStackPanel"
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="20, 0, 20, 0">
+            <TextBlock  
+            	HorizontalAlignment="right"
+            	TextWrapping="Wrap"
+            	Text="Tip Amount"
+            	FontSize="24" />
+
+            <TextBlock  
+            	HorizontalAlignment="right"
+            	TextWrapping="Wrap"
+            	Text="0%"
+            	FontSize="24" 
+                Name="tipDisplay"/>
             
-            <RadioButton
-                Content="10% - Horrible Service"
-                Tag="0.1"
-                GroupName="percentRadio"
-                Click="RadioButton_Click"/>
+        </StackPanel>
 
-            <RadioButton
-                Content="18% - Acceptable Service"
-                Tag="0.18"
-                GroupName="percentRadio"
-                IsChecked="True"
-                Click="RadioButton_Click"/>
+        <StackPanel 
+                Name="thirdStackPanel"
+                Grid.Row="2"
+                Grid.ColumnSpan="2"
+                Margin="20, 0, 20, 0"
+            >
+            <Slider 
+                Height="50"
+                Name="tipSlider"
+                Minimum="0"
+                Maximum="100"
+                ValueChanged="tipSlider_ValueChanges"/>
 
-            <RadioButton
-                Content="25% - Great Service"
-                Tag="0.25"
-                GroupName="percentRadio"
-                Click="RadioButton_Click"/>
 
             <TextBlock
                 FontSize="24"
@@ -101,7 +118,7 @@
                 Text="$0.00"
                 TextWrapping="Wrap"
                 VerticalAlignment="Top"/>
-            
+
 
         </StackPanel>
     </Grid>

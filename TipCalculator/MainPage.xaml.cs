@@ -33,9 +33,17 @@ namespace TipCalculator
 
         private void performCalculation()
         {
-            var selectedRadio = myStackPanel.Children.OfType<RadioButton>().FirstOrDefault(r => r.IsChecked == true);
+            //var selectedRadio = myStackPanel.Children.OfType<RadioButton>().FirstOrDefault(r => r.IsChecked == true);
 
-            tip.CalculateTip(billAmountTextBox.Text, double.Parse(selectedRadio.Tag.ToString()));
+            var selectedSliderValue = tipSlider.Value;
+
+            // update display for user
+            tipDisplay.Text = selectedSliderValue.ToString() + "%";
+
+            selectedSliderValue = selectedSliderValue * .01;
+
+            //tip.CalculateTip(billAmountTextBox.Text, double.Parse(selectedRadio.Tag.ToString()));
+            tip.CalculateTip(billAmountTextBox.Text, double.Parse(selectedSliderValue.ToString()));
 
             amountToTipTextBlock.Text = tip.TipAmount;
             totalTextBlock.Text = tip.TotalAmount;
@@ -74,6 +82,11 @@ namespace TipCalculator
         }
 
         private void RadioButton_Click(object sender, RoutedEventArgs e)
+        {
+            performCalculation();
+        }
+
+        private void tipSlider_ValueChanges(object sender, RangeBaseValueChangedEventArgs e)
         {
             performCalculation();
         }
