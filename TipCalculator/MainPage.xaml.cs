@@ -48,6 +48,23 @@ namespace TipCalculator
             amountToTipTextBlock.Text = tip.TipAmount;
             totalTextBlock.Text = tip.TotalAmount;
 
+            // per patron amount:
+            // if they are clearing this patrons will be zero
+            // just clear it
+            double numberOfPatrons = 0;
+            if (double.TryParse(patronsTextBox.Text, out numberOfPatrons))
+            {
+                double tipEachAmount = Math.Round(tip.TipAmountDouble / numberOfPatrons, 2);
+                double billEachAmount = Math.Round(tip.TotalAmountDouble / numberOfPatrons, 2);
+                tipSplitDisplay.Text = tipEachAmount.ToString();
+                billSplitDisplay.Text = billEachAmount.ToString();
+            }
+            else 
+            {
+                billSplitDisplay.Text = "0";
+                tipSplitDisplay.Text = "0";
+            }
+            
         }
 
         /// <summary>
@@ -89,6 +106,16 @@ namespace TipCalculator
         private void tipSlider_ValueChanges(object sender, RangeBaseValueChangedEventArgs e)
         {
             performCalculation();
+        }
+
+        private void patronsTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            performCalculation();
+        }
+
+        private void patronsTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            patronsTextBox.Text = "";
         }
     }
 }
